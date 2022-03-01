@@ -16,3 +16,12 @@ asdfsfd
 2. asdf
 3. sadf
 4. asfd
+
+Notes: IP address for localhost
+1. Set up data source
+2. Set up queries & visualizations in Redash
+3. Set up dashboard
+4. Set up nodered streaming
+ - configure connection
+ - set up components
+ - inject
