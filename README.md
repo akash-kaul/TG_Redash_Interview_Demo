@@ -1,6 +1,15 @@
 # TG_Redash_Interview_Demo
-asdfsfd
+The project is a live-streaming fraud dashboard that utilizes data from the fraud starter kit from TigerGraph. This project was created for the presentation round of my interview for TigerGraph. 
+
+The main components of this project are:
+1. [Redash](https://redash.io/) - for dashboarding
+2. [TigerGraph](https://www.tigergraph.com/) - graph database with connected fraud data
+3. TigerFlow ([NodeRed](https://nodered.org/)) - flow editor for configuring streaming of data
+4. [tgSolutionPack](https://github.com/TigerGraph-DevLabs/tgSolutionPack) - an open-source project from TigerGraph with scripts and data for installing the starter kits
+
+See below for instructions on replicating this project
 ## Installation - Generic
+
 1. asdf
 2. 2asdf
 3. asdf
