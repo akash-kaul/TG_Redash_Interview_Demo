@@ -25,15 +25,20 @@ fraudSolution.tar.gz  - Contains data and scripts for deploying the fraud Soluti
 genericSolution.tar.gz - Contains scripts for deploying the generic Solution
 ```
 
+### Download these files and unzip them to get started
+
 **Alternatively, you can clone this repository and use the directories available**
 
 
 See below for instructions of the respective solutions.
 ## Setup - Generic
-1. asdf
-2. 2asdf
-3. asdf
-4. dsf
+1. Change to the Generic folder
+
+   `cd Generic_Solution`
+
+3. Run the 
+4. asdf
+5. dsf
 ## Setup - Fraud
 1. asdf
 2. asdf
