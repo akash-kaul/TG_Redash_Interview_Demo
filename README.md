@@ -112,6 +112,22 @@ See below for instructions of the respective solutions.
 4. asfd
 
 ## Troubleshooting
+When first installing the docker images, you may run into this issue.
+![Screen Shot 2022-03-05 at 3 26 41 PM](https://user-images.githubusercontent.com/46678528/156900401-a8883764-aab6-4574-9025-6161bae5c5a4.png)
+
+This may happen if you have previously installed the TigerGraph docker image on your local machine.
+
+### To resolve, you need to edit the `known_hosts` file
+
+This file contains the public keys to all SSH hosts that have been verified
+
+**For me, this was located at `Users/akashkaul/.ssh`** 
+
+### Delete the line for TigerGraph 
+
+`[localhost]:14022 ecdsa-sha2-nistp256 AAA ....`
+
+Run the install script again and the error should be resolved!
 
 Notes: IP address for localhost
 1. Set up data source
