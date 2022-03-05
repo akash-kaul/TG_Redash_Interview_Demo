@@ -7,7 +7,10 @@ The main components of this project are:
 3. TigerFlow ([NodeRed](https://nodered.org/)) - flow editor for configuring streaming of data
 4. [tgSolutionPack](https://github.com/TigerGraph-DevLabs/tgSolutionPack) - an open-source project from TigerGraph with scripts and data for installing the starter kits
 
-See below for instructions on replicating this project
+# Getting Started
+This project offers two solutions. One is a fraud dataset with custom queries and other features. There are also instructions below to create a simple fraud dashboard with data streaming using Redash and Node Red. The other is a general insallation using the `tgSolutionPack` project. Using this you can install any of 10 different starter kits, and still contains the blank dashboard template to create your own custom projects.
+
+See below for instructions of the respective solutions.
 ## Installation - Generic
 
 1. asdf
