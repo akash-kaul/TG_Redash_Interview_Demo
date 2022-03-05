@@ -105,7 +105,7 @@ See below for instructions of the respective solutions.
    
    This creates the fraud starter kit schema, loads the data, and installs several queries. 
    
-   **This may take a while. Sit back and relax**
+   ### This may take up to 10 minutes. Sit back and relax
    
    Once installed, you can check everything loaded correctly by using GraphStudio.
    
