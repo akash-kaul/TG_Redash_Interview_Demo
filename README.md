@@ -65,6 +65,10 @@ See below for instructions of the respective solutions.
 
    `./runDPInstall.sh`
    
+   or
+   
+   `sh runDPInstall.sh`
+   
 5. To stop the Docker container, run `docker-compose stop`
 6. To restart the container execute the file `deploy_solution_generic.sh` again
 ## Setup - Fraud
@@ -94,6 +98,10 @@ See below for instructions of the respective solutions.
 4. Run the install script
 
    `./runDPInstall.sh`
+   
+   or
+   
+   `sh runDPInstall.sh`
    
    This creates the fraud starter kit schema, loads the data, and installs several queries. 
    
