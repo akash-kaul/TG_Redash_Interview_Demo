@@ -59,7 +59,8 @@ See below for instructions of the respective solutions.
    
    You can check everything has been installed correctly by running `ls`. You should see the following
    
-   <img width="768" alt="Screen Shot 2022-03-05 at 3 04 45 PM" src="https://user-images.githubusercontent.com/46678528/156899886-c868d53b-dddd-424e-9432-9ecc52986c62.png">
+   
+   ![Screen Shot 2022-03-05 at 3 04 45 PM](https://user-images.githubusercontent.com/46678528/156899886-c868d53b-dddd-424e-9432-9ecc52986c62.png)
 
 4. Run the install script and follow the instructions to install a TigerGraph starter kit
 
@@ -114,10 +115,38 @@ See below for instructions of the respective solutions.
 5. To stop the Docker container, run `docker-compose stop`
 6. To restart the container execute the file `deploy_solution_generic.sh` again
 ## Fraud Dashboard
-1. asdf
-2. asdf
-3. sadf
-4. asfd
+1. Once installed, you can head over to the redash app.
+   
+   `localhost:5000`
+2. Create an account and login
+
+   ![Screen Shot 2022-03-05 at 4 06 12 PM](https://user-images.githubusercontent.com/46678528/156901327-11ae9d05-9a36-43bb-8ed6-18e3bd410448.png)
+3. Click `Connect a Data Source`
+
+   Alternatively, go to `Settings` to add a new data source
+   
+   Fill out the information requested.
+   
+   ### Two important notes:
+   1. To get the `Graph Secret`, use the **Admin Portal** of GraphStudio (`localhost:14240`) and generate a new secret under the tab `Management -> Users`
+   ![Screen Shot 2022-03-05 at 4 13 18 PM](https://user-images.githubusercontent.com/46678528/156901480-29dc6b4e-8fef-4f02-a754-a3a0591feaee.png)
+   2. Because we are using docker containers, the `TigerGraph Host` is not the localhost but your local IP address (ie `http://192.168.1.0`)
+
+4. Save the Data Source and **Test the connection** to make sure it is working
+
+![Screen Shot 2022-03-05 at 4 16 32 PM](https://user-images.githubusercontent.com/46678528/156901559-f5912765-1ed8-4094-a0fb-4f243673b548.png)
+   
+5. asfd
+
+
+Notes: IP address for localhost
+1. Set up data source
+2. Set up queries & visualizations in Redash
+3. Set up dashboard
+4. Set up nodered streaming
+ - configure connection
+ - set up components
+ - inject
 
 ## Troubleshooting
 When first installing the docker images, you may run into this issue.
@@ -136,12 +165,3 @@ This file contains the public keys to all SSH hosts that have been verified
 `[localhost]:14022 ecdsa-sha2-nistp256 AAA ....`
 
 Run the install script again and the error should be resolved!
-
-Notes: IP address for localhost
-1. Set up data source
-2. Set up queries & visualizations in Redash
-3. Set up dashboard
-4. Set up nodered streaming
- - configure connection
- - set up components
- - inject
