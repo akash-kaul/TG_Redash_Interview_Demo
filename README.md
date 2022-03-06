@@ -134,7 +134,6 @@ See below for instructions of the respective solutions.
 
 4. Save the Data Source and **Test the connection** to make sure it is working
 
-![Screen Shot 2022-03-05 at 4 16 32 PM](https://user-images.githubusercontent.com/46678528/156901559-f5912765-1ed8-4094-a0fb-4f243673b548.png)
    
 5. asfd
 
