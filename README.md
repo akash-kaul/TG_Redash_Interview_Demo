@@ -130,7 +130,7 @@ See below for instructions of the respective solutions.
    ### Two important notes:
    1. To get the `Graph Secret`, use the **Admin Portal** of GraphStudio (`localhost:14240`) and generate a new secret under the tab `Management -> Users`
    ![Screen Shot 2022-03-05 at 4 13 18 PM](https://user-images.githubusercontent.com/46678528/156901480-29dc6b4e-8fef-4f02-a754-a3a0591feaee.png)
-   2. Because we are using docker containers, the `TigerGraph Host` is not the localhost but your local IP address (ie `http://192.168.1.0`)
+   2. Because we are using docker containers, the `TigerGraph Host` is not `localhost` but your local IP address (ie `http://192.168.1.0`)
 
 4. Save the Data Source and **Test the connection** to make sure it is working
 
@@ -138,8 +138,6 @@ See below for instructions of the respective solutions.
 5. asfd
 
 
-Notes: IP address for localhost
-1. Set up data source
 2. Set up queries & visualizations in Redash
 3. Set up dashboard
 4. Set up nodered streaming
