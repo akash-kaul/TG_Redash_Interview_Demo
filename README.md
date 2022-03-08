@@ -23,8 +23,8 @@ There are a few main docker images in this project:
 
 **The projects contains 2 gzip files for deployment**
 ```
-fraudSolution.tar.gz  - Contains data and scripts for deploying the fraud Solution
-genericSolution.tar.gz - Contains scripts for deploying the generic Solution
+Fraud_Solution.tar.gz  - Contains data and scripts for deploying the fraud Solution
+Generic_Solution.tar.gz - Contains scripts for deploying the generic Solution
 ```
 
 ### Download these files and unzip them to get started
