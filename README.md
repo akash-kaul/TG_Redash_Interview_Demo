@@ -106,7 +106,7 @@ See below for instructions of the respective solutions.
    
    This creates the fraud starter kit schema, loads the data, and installs several queries. 
    
-   ### This may take up to 10 minutes. Sit back and relax
+   ### This may take up to 15 minutes. Sit back and relax
    
    Once installed, you can check everything loaded correctly by using GraphStudio.
    
@@ -133,6 +133,7 @@ See below for instructions of the respective solutions.
    2. Because we are using docker containers, the `TigerGraph Host` is not `localhost` but your local IP address (ie `http://192.168.1.0`)
 
 4. Save the Data Source and **Test the connection** to make sure it is working
+![Screen Shot 2022-03-07 at 6 53 32 PM](https://user-images.githubusercontent.com/46678528/157144091-86a4f451-2c72-4dcb-a270-0c410d1dc998.png)
 
    
 5. asfd
@@ -145,7 +146,8 @@ See below for instructions of the respective solutions.
  - set up components
  - inject
 
-## Troubleshooting
+# Troubleshooting
+## Remote Host Identification
 When first installing the docker images, you may run into this issue.
 ![Screen Shot 2022-03-05 at 3 26 41 PM](https://user-images.githubusercontent.com/46678528/156900401-a8883764-aab6-4574-9025-6161bae5c5a4.png)
 
@@ -162,3 +164,16 @@ This file contains the public keys to all SSH hosts that have been verified
 `[localhost]:14022 ecdsa-sha2-nistp256 AAA ....`
 
 Run the install script again and the error should be resolved!
+
+## Rest++ Authentication 
+When trying to connect your TigerGraph database to Redash, you may come across the following error:
+> REST++ authentication is not enabled, can't generate token
+
+This may happen if user authentication is not enabled in TigerGraph.
+Run these commands (courtesy of [TigerGraph docs](https://docs.tigergraph.com/tigergraph-server/current/user-access/enabling-user-authentication#_enable_restpp_authentication)) in the TigerGraph shell to enable authentication:
+
+`gadmin config set RESTPP.Factory.EnableAuth true`
+
+`gadmin config apply`
+
+`gadmin restart restpp nginx gui gsql -y`
