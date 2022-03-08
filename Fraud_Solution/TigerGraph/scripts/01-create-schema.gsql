@@ -1,0 +1,23 @@
+USE GLOBAL
+DROP GRAPH AntiFraud
+
+CREATE GRAPH AntiFraud()
+USE GRAPH AntiFraud
+
+CREATE SCHEMA_CHANGE JOB anti_fraud_job FOR GRAPH AntiFraud {
+
+    ADD VERTEX Transaction(PRIMARY_ID id STRING, ts UINT, amount FLOAT) WITH STATS="OUTDEGREE_BY_EDGETYPE", PRIMARY_ID_AS_ATTRIBUTE="true";
+    ADD VERTEX User(PRIMARY_ID id STRING, signupEpoch UINT, mobile STRING, trust_score FLOAT) WITH STATS="OUTDEGREE_BY_EDGETYPE", PRIMARY_ID_AS_ATTRIBUTE="true";
+    ADD VERTEX Device_Token(PRIMARY_ID id STRING, is_banned BOOL, os_name STRING, os_version STRING, model STRING, carrier STRING, is_rooted BOOL, is_emulator BOOL, device_name STRING, trust_score FLOAT) WITH STATS="OUTDEGREE_BY_EDGETYPE", PRIMARY_ID_AS_ATTRIBUTE="true";
+    ADD VERTEX Payment_Instrument(PRIMARY_ID id STRING, token_handle STRING, token_type STRING, card_issuing_country_iso2 STRING, card_issuing_bank STRING, card_bin STRING, trust_score FLOAT) WITH STATS="OUTDEGREE_BY_EDGETYPE", PRIMARY_ID_AS_ATTRIBUTE="true";
+
+    ADD DIRECTED EDGE User_Transfer_Transaction(FROM User, TO Transaction) WITH REVERSE_EDGE="User_Transfer_Transaction_Rev";
+    ADD UNDIRECTED EDGE User_to_Device(FROM User, TO Device_Token);
+    ADD UNDIRECTED EDGE User_to_Payment(FROM User, TO Payment_Instrument);
+    ADD DIRECTED EDGE User_Refer_User(FROM User, TO User) WITH REVERSE_EDGE="User_Referred_By_User";
+    ADD DIRECTED EDGE User_Receive_Transaction(FROM User, TO Transaction) WITH REVERSE_EDGE="User_Receive_Transaction_Rev";
+
+}
+
+RUN SCHEMA_CHANGE JOB anti_fraud_job
+DROP JOB anti_fraud_job

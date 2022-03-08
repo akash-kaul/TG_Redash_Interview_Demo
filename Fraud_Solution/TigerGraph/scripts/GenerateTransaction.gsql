@@ -1,0 +1,39 @@
+USE GRAPH AntiFraud
+CREATE QUERY GenerateTransaction() FOR GRAPH AntiFraud {
+
+  ListAccum<VERTEX<User>> @@randomUsers;
+  ListAccum<STRING> @@allTransactions;
+  INT randomIndex1, randomIndex2, randAmount;
+  STRING randTransactionID;
+
+  Seed = {User.*};
+  Seed2 = {Transaction.*};
+
+  users = SELECT s FROM Seed:s
+          WHERE s.signupEpoch != 0
+          ACCUM @@randomUsers += s;
+
+  transactions = SELECT s FROM Seed2:s ACCUM @@allTransactions += s.id;
+
+  randomIndex1 = round(@@randomUsers.size() * rand());
+  randomIndex2 = round(@@randomUsers.size() * rand());
+
+  randAmount = round(100 * rand());
+
+  randTransactionID = to_string(floor(9*rand()) + 1);
+
+  WHILE @@allTransactions.contains(randTransactionID) DO
+    randTransactionID = randTransactionID + to_string(floor(10*rand()));
+  END;
+
+  INSERT INTO Transaction VALUES (randTransactionID, datetime_to_epoch(now()), randAmount);
+
+  INSERT INTO User_Receive_Transaction VALUES (@@randomUsers.get(randomIndex1), randTransactionID);
+
+  INSERT INTO User_Transfer_Transaction VALUES (@@randomUsers.get(randomIndex2), randTransactionID);
+
+  PRINT randTransactionID AS Transaction_ID, @@randomUsers.get(randomIndex1) AS User1, @@randomUsers.get(randomIndex2) AS User2;
+
+}
+
+Install query GenerateTransaction

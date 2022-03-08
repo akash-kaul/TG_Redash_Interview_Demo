@@ -1,0 +1,35 @@
+USE GRAPH AntiFraud
+CREATE OR REPLACE QUERY GetRecentTransactions(/* Parameters here */) FOR GRAPH AntiFraud {
+  /* Write query logic here */
+  TYPEDEF TUPLE <VERTEX Sender, STRING Sender_Trust_Score, VERTEX Receiver, STRING Receiver_Trust_Score, FLOAT Amount, BOOL Flag, DATETIME Timestamp> transactionData;
+
+  ListAccum<VERTEX> @sender, @receiver;
+  HeapAccum<transactionData>(50, Timestamp DESC) @@transactionList;
+  OrAccum @isFraud;
+  SumAccum<FLOAT> @senderTrust, @receiverTrust;
+
+  VERTEX<User> sender, receiver;
+  Start = {Transaction.*};
+
+  res = SELECT s FROM Start:s ORDER BY s.ts DESC LIMIT 50;
+
+  res = SELECT s FROM res:s - (:e) - User:u
+     ACCUM CASE
+          WHEN e.type == "User_Receive_Transaction_Rev" THEN
+            s.@receiver = u, s.@receiverTrust = u.trust_score
+          WHEN e.type == "User_Transfer_Transaction_Rev" THEN
+            s.@sender = u, s.@senderTrust = u.trust_score
+        END;
+
+  res = SELECT s FROM res:s
+        ACCUM IF SameReceiverSender(s) THEN
+            @@transactionList += transactionData(s.@sender.get(0), to_string(s.@senderTrust), s.@receiver.get(0), to_string(s.@receiverTrust), s.amount, TRUE, epoch_to_datetime(s.ts))
+        ELSE @@transactionList += transactionData(s.@sender.get(0), to_string(s.@senderTrust), s.@receiver.get(0), to_string(s.@receiverTrust), s.amount, FALSE, epoch_to_datetime(s.ts))
+
+        END;
+
+  PRINT @@transactionList;
+
+}
+
+Install query GetRecentTransactions

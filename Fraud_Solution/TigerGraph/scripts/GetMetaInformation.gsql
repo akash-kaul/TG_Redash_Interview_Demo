@@ -1,0 +1,36 @@
+USE GRAPH AntiFraud
+CREATE QUERY GetMetaInformation() FOR GRAPH AntiFraud {
+
+  TYPEDEF TUPLE<INT Total_Users, INT Total_Transactions, INT Total_Transaction_Amount, DOUBLE Average_Transaction_Amount, INT Users_Of_Interst, INT Transactions_Of_Interest> metaInfoType;
+
+  SumAccum<INT> @@totalTransactionAmount;
+  AvgAccum @@averageTransactionAmount;
+  ListAccum<STRING> @@usersOfInterst, @@transactionsOfInterest;
+  AndAccum @riskyTransaction;
+  ListAccum<metaInfoType> @@metaInformationList;
+
+  Transaction_Seed = {Transaction.*};
+  User_Seed = {User.*};
+
+  transactions_main = SELECT t FROM Transaction_Seed:t
+                  ACCUM @@totalTransactionAmount += t.amount, @@averageTransactionAmount += t.amount;
+
+  transactions = SELECT t FROM Transaction_Seed:t - ((User_Receive_Transaction_Rev|User_Transfer_Transaction_Rev):e) - User:u
+              ACCUM IF u.trust_score == 0 OR u.trust_score > 0.3 THEN
+                t.@riskyTransaction += FALSE
+              END;
+
+  transactions = SELECT t FROM Transaction_Seed:t WHERE t.@riskyTransaction == TRUE
+                  ACCUM @@transactionsOfInterest += t.id;
+
+  users = SELECT u FROM User_Seed:u
+          ACCUM IF u.trust_score > 0 AND u.trust_score < 0.3 THEN
+              @@usersOfInterst += u.id
+          END;
+
+  @@metaInformationList += metaInfoType(users.size(), transactions_main.size(), @@totalTransactionAmount, @@averageTransactionAmount, @@usersOfInterst.size(), @@transactionsOfInterest.size());
+
+  PRINT @@metaInformationList;
+
+}
+INSTALL Query GetMetaInformation

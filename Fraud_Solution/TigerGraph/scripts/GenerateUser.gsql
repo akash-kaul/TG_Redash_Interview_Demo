@@ -1,0 +1,22 @@
+USE GRAPH AntiFraud
+CREATE QUERY GenerateUser() FOR GRAPH AntiFraud {
+
+  ListAccum<STRING> @@randomUsers;
+  STRING userID;
+
+  Seed = {User.*};
+
+  users = SELECT s FROM Seed:s ACCUM @@randomUsers += s.id;
+
+  userID = to_string(floor(9*rand()) + 1);
+
+  WHILE @@randomUsers.contains(userID) DO
+    userID = userID + to_string(floor(10*rand()));
+  END;
+
+  INSERT INTO User VALUES (userID, datetime_to_epoch(now()), userID + "mb", rand());
+
+  PRINT userID;
+}
+
+INSTALL QUERY GenerateUser
