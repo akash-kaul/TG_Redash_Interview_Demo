@@ -1,5 +1,7 @@
 # TG_Redash_Interview_Demo
 The project is a live-streaming fraud dashboard that utilizes data from the fraud starter kit from TigerGraph. This project was created for the presentation round of my interview for TigerGraph. 
+   ![Screen Shot 2022-03-07 at 7 18 54 PM](https://user-images.githubusercontent.com/46678528/157146592-f4c1dbbb-45b3-41f7-bee7-97b87757f1f3.png)
+
 
 The main components of this project are:
 1. [Redash](https://redash.io/) - for dashboarding
