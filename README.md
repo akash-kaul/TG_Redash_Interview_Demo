@@ -135,16 +135,59 @@ See below for instructions of the respective solutions.
 4. Save the Data Source and **Test the connection** to make sure it is working
 ![Screen Shot 2022-03-07 at 6 53 32 PM](https://user-images.githubusercontent.com/46678528/157144091-86a4f451-2c72-4dcb-a270-0c410d1dc998.png)
 
+5. Create a new query and call `GetRecentTransactions` from TigerGraph
    
-5. asfd
+   ![Screen Shot 2022-03-07 at 7 03 37 PM](https://user-images.githubusercontent.com/46678528/157145098-3a6a56b7-4dbf-4883-9e8f-2b44679c4200.png)
+   This query gets the latest 50 transactions in the graph, and will be used to get a table of transactions that updates in real time for the dashboard
+   
+6. Click **Add Visualization** to create a *Table* visualization. Style it as you like.
+   
+   Once complete, be sure to **set the refresh time** if desired and **name the query and publish** 
+   
+6. Create a new query and call `GetMetaInformation` from TigerGraph
+   
+   This query gets high-level information like number of users, total transaction amount, etc. Using this query we can create several *Counter* visualizations to display large numbers.
+   
+   ![Screen Shot 2022-03-07 at 7 12 50 PM](https://user-images.githubusercontent.com/46678528/157146003-7a513239-0eb6-4875-bfba-aa6581613b14.png)
 
+7. Create *Counter* visualizations for all of the 6 columns.
 
-2. Set up queries & visualizations in Redash
-3. Set up dashboard
-4. Set up nodered streaming
- - configure connection
- - set up components
- - inject
+8. Create a new Dashboard. Call it something like **Fraud Dashboard**
+
+   Use the **Add Widget** button to add the different visualizations we created to the table layout. Orient and position them how you see fit. Here is an example:
+   
+   ![Screen Shot 2022-03-07 at 7 18 54 PM](https://user-images.githubusercontent.com/46678528/157146592-f4c1dbbb-45b3-41f7-bee7-97b87757f1f3.png)
+
+9. **Publish the results**
+   
+10. The final step is to set up NodeRed streaming. Click the **TigerGlow** icon on the sidebar.
+
+   To start, add a **TigerGraphQuery** node from the left panel
+   
+   **Double click** on the node and edit the **TG Graph**
+   Configure the connection similar to the redash data source (**Note: DO NOT include the `http://` portion of the URL**) 
+   
+   ![Screen Shot 2022-03-07 at 7 29 28 PM](https://user-images.githubusercontent.com/46678528/157147729-7b4dc8a6-8e5e-4924-821e-3ceebc0c8544.png)
+   
+   Now set up the node to call the query `GenerateUser` or `GenerateTransaction`. These queries randomly generate users or transactions between users respectively and update the graph. We will use NodeRed to continuously call these queries and *simulate* live transactions
+   
+   ![Screen Shot 2022-03-07 at 7 32 39 PM](https://user-images.githubusercontent.com/46678528/157148053-8d5f67a5-94bc-4fcd-815d-b9466de9ab2e.png)
+
+   All that's left is to add the inject component. This is what triggers the call to TigerGraph. Configure the inject to not transmit any data, and to repeat however often you desire.
+   
+   ![Screen Shot 2022-03-07 at 7 36 20 PM](https://user-images.githubusercontent.com/46678528/157148413-adf1b1fd-0188-4198-9bb7-fb357cafecfb.png)
+
+   
+   Connect the **inject node** to the **TigerGraphQuery node**
+   
+   Repeat the process with the other query (`GenerateUser` or `GenerateTransaction`).
+   
+   **Deploy the flow**
+   
+   ### Double check: 
+   The TigerGraphQuery nodes should say **connected** if everything is configured properly
+   
+   ### Inject both queries and watch the live updates in your dashboard!
 
 # Troubleshooting
 ## Remote Host Identification
